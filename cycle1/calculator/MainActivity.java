@@ -3,119 +3,92 @@ package com.example.sjcet.calculator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText no1 , no2;
-    Button add ,mul ,div , sub,equal;
-    TextView answer;
-    double ans = 0;
-
+    EditText ed1,ed2;
+    TextView tv1;
+    double num1,num2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ed1 = findViewById(R.id.ed1);
+        ed2 = findViewById(R.id.ed2);
+        tv1= findViewById(R.id.tv1);
+
+    }
+    public void Clear(View view) {
+        // Clear the EditText fields
+        ed1.setText("");
+        ed2.setText("");
+
+        // Clear the result TextView
+        tv1.setText("");
+    }
+
+    public void Add(View view) {
+        String num1str = ed1.getText().toString();
+        String num2str = ed2.getText().toString();
+        if (!num1str.isEmpty() && !num2str.isEmpty()) {
+            double num1 = Double.parseDouble(num1str);
+            double num2 = Double.parseDouble(num2str);
+            double result = num1 + num2;
+            tv1.setText(String.valueOf(result));
+        } else {
+            tv1.setText("Result: Invalid input");
+        }
+
+    }
+
+    public void Sub(View view) {
+        String num1str = ed1.getText().toString();
+        String num2str = ed2.getText().toString();
+
+        if (!num1str.isEmpty() && !num2str.isEmpty()) {
+            double num1 = Double.parseDouble(num1str);
+            double num2 = Double.parseDouble(num2str);
+            double result = num1 - num2;
+            tv1.setText(String.valueOf(result));
+        } else {
+            tv1.setText("Result: Invalid input");
+        }
+    }
+
+    public void Mul(View view) {
+        String num1str = ed1.getText().toString();
+        String num2str = ed2.getText().toString();
+
+        if (!num1str.isEmpty() && !num2str.isEmpty()) {
+            double num1 = Double.parseDouble(num1str);
+            double num2 = Double.parseDouble(num2str);
+            double result = num1 * num2;
+            tv1.setText(String.valueOf(result));
+        } else {
+            tv1.setText("Result: Invalid input");
+        }
+    }
 
 
-        // for text views
-        no1 = findViewById(R.id.first_no);
-        no2 = findViewById(R.id.second_no);
+    public void Div(View view) {
+        String num1str = ed1.getText().toString();
+        String num2str = ed2.getText().toString();
 
-        // for button with operations
-        add = findViewById(R.id.add);
-        mul = findViewById(R.id.mul);
-        div = findViewById(R.id.div);
-        sub = findViewById(R.id.sub);
+        if (!num1str.isEmpty() && !num2str.isEmpty()) {
+            double num1 = Double.parseDouble(num1str);
+            double num2 = Double.parseDouble(num2str);
 
-        // for equal to button
-        equal = findViewById(R.id.equals);
-
-        // for answer field
-        answer = findViewById(R.id.answer);
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String num1 = no1.getText().toString();
-                String num2 = no2.getText().toString();
-
-                if (num1.isEmpty() || num2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"Enter Numbers",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    double a = Double.parseDouble(no1.getText().toString());
-                    double b = Double.parseDouble(no2.getText().toString());
-                    ans = a + b;
-                }
+            if (num2 != 0) {
+                double result = num1 / num2;
+                tv1.setText(String.valueOf(result));
+            } else {
+                tv1.setText("Result: Division by zero");
             }
-        });
-
-        sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String num1 = no1.getText().toString();
-                String num2 = no2.getText().toString();
-
-                if (num1.isEmpty() || num2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"Enter Numbers",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    double a = Double.parseDouble(no1.getText().toString());
-                    double b = Double.parseDouble(no2.getText().toString());
-                    ans = a - b;
-                }
-            }
-        });
-
-        mul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String num1 = no1.getText().toString();
-                String num2 = no2.getText().toString();
-
-                if (num1.isEmpty() || num2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"Enter Numbers",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    double a = Double.parseDouble(no1.getText().toString());
-                    double b = Double.parseDouble(no2.getText().toString());
-                    ans = a * b;
-                }
-            }
-        });
-
-        div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String num1 = no1.getText().toString();
-                String num2 = no2.getText().toString();
-
-                if (num1.isEmpty() || num2.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Enter Numbers", Toast.LENGTH_SHORT).show();
-                } else {
-                    double a = Double.parseDouble(no1.getText().toString());
-                    double b = Double.parseDouble(no2.getText().toString());
-                    if (b != 0)
-                        ans = a / b;
-                    else
-                        Toast.makeText(getApplicationContext(), "Enter Valid Numbers", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        equal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String ans1 = String.valueOf(ans);
-                answer.setText(ans1);
-                ans= 0;
-            }
-        });
-
+        } else {
+            tv1.setText("Result: Invalid input");
+        }
     }
 }
